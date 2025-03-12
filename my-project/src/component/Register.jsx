@@ -1,13 +1,23 @@
 import React from 'react';
 
 const Register = () => {
+
+    const handleRegister=(e)=>{
+        e.preventDefault();
+        const name=e.target.name.value;
+        const email=e.target.email.value;
+        const password=e.target.password.value;
+
+        console.log(name,email,password)
+    }
+
     return (
         <div className="">
             <div className="hero-content flex-col">
                 <h1 className="text-2xl font-bold">Register now!</h1>
 
                 <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                    <div className="card-body">
+                    <form onSubmit={handleRegister} className="card-body">
                         <fieldset className="fieldset">
                             <label className="fieldset-label">Name</label>
                             <input type="text" name='name' className="input" placeholder="Name" />
@@ -21,7 +31,7 @@ const Register = () => {
 
                             <button className="btn btn-neutral mt-4">Register</button>
                         </fieldset>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

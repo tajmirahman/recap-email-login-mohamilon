@@ -1,7 +1,12 @@
-import React from 'react';
+
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../AuthProvider/AuthProvider';
 
 const Header = () => {
+        const {name}= useContext(AuthContext);
+        console.log(name);
+
 
     const links = <>
         <li className='text-xl'><NavLink to={'/'}>Home</NavLink></li>
