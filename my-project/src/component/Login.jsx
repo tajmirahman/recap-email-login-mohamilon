@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../AuthProvider/AuthProvider';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
 
@@ -15,6 +16,7 @@ const Login = () => {
         signInUser(email,password)
         .then(result=>{
             console.log(result.user)
+            e.target.reset();
         })
         .catch(error=>{
             console.log("Error",error)
@@ -40,6 +42,7 @@ const Login = () => {
 
                             <button className="btn btn-neutral mt-4">Login</button>
                         </fieldset>
+                        <p>If you don't have an account? please <Link className='text-green-300 underline' to={'/register'}>resgister</Link></p>
                     </form>
                 </div>
             </div>
