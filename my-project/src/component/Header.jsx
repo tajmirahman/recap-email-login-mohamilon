@@ -1,12 +1,20 @@
 
-import { use, useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import {  useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 
 const Header = () => {
-        const {user}= useContext(AuthContext);
+        const {user,userSignOut}= useContext(AuthContext);
    
-        console.log(user)
+        const handleSignOut=()=>{
+            userSignOut()
+            .then(result=>{
+                console.log(result)
+            })
+            .catch(error=>{
+                console.log('Error',error)
+            })
+        }
 
     const links = <>
         <li className='text-xl'><NavLink to={'/'}>Home</NavLink></li>
@@ -43,7 +51,12 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+               {
+                user ? 
+                <><span>{user.emmail}</span>
+                <Link onClick={handleSignOut} className='btn'>SignOut</Link></>
+                :<Link to={'/login'}>Login</Link>
+               }
             </div>
         </div>
     );
