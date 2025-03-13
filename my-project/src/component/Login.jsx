@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEyeSlash } from "react-icons/fa";
@@ -6,6 +6,8 @@ import { FaEyeSlash } from "react-icons/fa";
 const Login = () => {
     const navigate= useNavigate();
     const {signInUser,signInWithGoogle}=useContext(AuthContext);
+
+    const [showPassword,setShowPassword]= useState('false');
 
     const handleLogin=(e)=>{
         e.preventDefault();
@@ -23,6 +25,10 @@ const Login = () => {
         .catch(error=>{
             console.log("Error",error)
         })
+    }
+
+    const handleHidePass=()=>{
+        setShowPassword(true);
     }
 
     const handleGoogle=()=>{
@@ -49,9 +55,9 @@ const Login = () => {
                             <input type="email" name='email' className="input" placeholder="Email" />
 
                             <label className="fieldset-label">Password</label>
-                            <input type="password" name='password' className="input" placeholder="Password" />
+                            <input type={showPassword ? 'text': 'password'} name='password' className="input" placeholder="Password" />
 
-                            <button className='absolute right-12 top-32 text-xl'><FaEyeSlash /></button>
+                            <button onClick={()=>handleHidePass()} className='absolute right-12 top-32 text-xl'><FaEyeSlash /></button>
 
                             <div><a className="link link-hover">Forgot password?</a></div>
 
