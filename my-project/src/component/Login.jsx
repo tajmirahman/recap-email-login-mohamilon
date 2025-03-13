@@ -7,7 +7,7 @@ const Login = () => {
     const navigate= useNavigate();
     const {signInUser,signInWithGoogle}=useContext(AuthContext);
 
-    const [showPassword,setShowPassword]= useState('false');
+    const [showPassword,setShowPassword]= useState(false);
 
     const handleLogin=(e)=>{
         e.preventDefault();
@@ -27,15 +27,14 @@ const Login = () => {
         })
     }
 
-    const handleHidePass=()=>{
-        setShowPassword(true);
-    }
+
 
     const handleGoogle=()=>{
         signInWithGoogle()
         .then(result=>{
             console.log(result)
             navigate('/profile')
+            setShowPassword(true);
         })
         .catch(error=>{
             console.log(error)
@@ -57,7 +56,7 @@ const Login = () => {
                             <label className="fieldset-label">Password</label>
                             <input type={showPassword ? 'text': 'password'} name='password' className="input" placeholder="Password" />
 
-                            <button onClick={()=>handleHidePass()} className='absolute right-12 top-32 text-xl'><FaEyeSlash /></button>
+                            <button type='button' onClick={()=>setShowPassword(!showPassword)} className='absolute right-12 top-32 text-xl'><FaEyeSlash /></button>
 
                             <div><a className="link link-hover">Forgot password?</a></div>
 
