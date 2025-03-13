@@ -24,6 +24,7 @@ const Header = () => {
         {
             user && <>
             <li className='text-xl'><NavLink to={'/orders'}>Order</NavLink></li>
+            <li className='text-xl'><NavLink to={'/profile'}>Profile</NavLink></li>
             </>
         }
 
@@ -53,7 +54,7 @@ const Header = () => {
             <div className="navbar-end">
                {
                 user ? 
-                <><span>{user.emmail}</span>
+                <><span>{user.email}</span>
                 <Link onClick={handleSignOut} className='btn'>SignOut</Link></>
                 :<Link to={'/login'}>Login</Link>
                }
