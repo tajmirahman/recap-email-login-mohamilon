@@ -9,17 +9,21 @@ export const AuthContext=createContext(null);
 const AuthProvider = ({children}) => {
 
     const [user, setUser]=useState(null);
+    const [loading, setLoading]=useState(true);
 
     const registerUser=(email,password)=>{
+        setLoading(true);
         return createUserWithEmailAndPassword(auth,email,password)
     }
 
     const signInUser=(email,password)=>{
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email,password)
     }
 
     const userSignOut=()=>{
-        signOut(auth)
+        setLoading(true)
+        signOut(auth);
     }
 
     useEffect(()=>{
@@ -27,8 +31,10 @@ const AuthProvider = ({children}) => {
             if(currentUser){
                 console.log('user Log in', currentUser);
                 setUser(currentUser)
+                setLoading(false);
             }else{
-                console.log('user sign out')
+                console.log('user sign out');
+                setLoading(false);
             }
         });
 
@@ -40,6 +46,7 @@ const AuthProvider = ({children}) => {
 
     const authInfo={
         user,
+        loading,
         registerUser,
         signInUser,
         userSignOut
