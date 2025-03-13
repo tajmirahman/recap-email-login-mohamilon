@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const navigate= useNavigate();
-    const {registerUser}=useContext(AuthContext)
+    const {registerUser}=useContext(AuthContext);
+    const [error, setError]=useState('');
 
     const handleRegister=(e)=>{
         e.preventDefault();
@@ -13,6 +14,13 @@ const Register = () => {
         const password=e.target.password.value;
 
         console.log(name,email,password)
+
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{6,}$/;
+
+        if(!passwordRegex.test(password)){
+            setError('Please provide at least one uppercase, one lowercase, one speciall character and one number and lenght has to be at least 6 character');
+            return;
+        }
 
         registerUser(email,password)
         .then(result=>{
@@ -47,6 +55,9 @@ const Register = () => {
                             <button className="btn btn-neutral mt-4">Register</button>
                         </fieldset>
                         <p>If you have already an account? please <Link className='text-green-300 underline' to={'/login'}>login</Link></p>
+                        {
+                            error && <p className='text-red-400'>{error}</p>
+                        }
                     </form>
                 </div>
             </div>
