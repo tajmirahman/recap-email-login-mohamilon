@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const navigate= useNavigate();
-    const {signInUser}=useContext(AuthContext);
+    const {signInUser,signInWithGoogle}=useContext(AuthContext);
 
     const handleLogin=(e)=>{
         e.preventDefault();
@@ -21,6 +21,17 @@ const Login = () => {
         })
         .catch(error=>{
             console.log("Error",error)
+        })
+    }
+
+    const handleGoogle=()=>{
+        signInWithGoogle()
+        .then(result=>{
+            console.log(result)
+            navigate('/profile')
+        })
+        .catch(error=>{
+            console.log(error)
         })
     }
 
@@ -44,6 +55,7 @@ const Login = () => {
                             <button className="btn btn-neutral mt-4">Login</button>
                         </fieldset>
                         <p>If you don't have an account? please <Link className='text-green-300 underline' to={'/register'}>resgister</Link></p>
+                        <button onClick={handleGoogle} className='btn btn-ghost'>Login With Google</button>
                     </form>
                 </div>
             </div>
